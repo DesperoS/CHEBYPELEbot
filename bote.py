@@ -1,13 +1,32 @@
 import telebot
 import config
+import pyowm
 
 bot = telebot.TeleBot(config.TOKEN)
+owm = pyowm.OWM('9e74b4669f6a8cf98cab1138c031c5fb', language = "ru")
 
 
 @bot.message_handler(content_types=['text'])
 def lalala(message):
-	bot.send_message(message.chat.id, message.text)
-	print(message.chat.username)
+	user_text = message.text.lower()
+	observation = owm.weather_at_place(user_text)
+	w = observation.get_weather()
+	temp = w.get_temperature('celsius')["temp"]
+	first_message = "В городе " + user_text + " сейчас " + w.get_detailed_status()
+	second_message = "Температура сейчас в районе " + str(temp) + " градусов цельсия"
+
+	bot.send_message(message.chat.id, first_message)
+	bot.send_message(message.chat.id, second_message)
+
+	sovet_message = "ни ебу"
+
+	if temp < 10:
+		sovet_message = "ОДЕВАЙ ПОДШТАННИКИ, ДЕБИЛ. Тебе ещё детей ростить"
+	elif temp > 10:
+		sovet_message = "чо нарядился как капуста, пиздуй в шортанах девок клеить и пиццу жрать, дебил"
+
+	bot.send_message(message.chat.id, sovet_message)
+	print(message.chat.username + " - " + user_text)
 
 
 #RUN
