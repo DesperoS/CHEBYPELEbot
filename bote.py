@@ -11,8 +11,7 @@ owm = pyowm.OWM('9e74b4669f6a8cf98cab1138c031c5fb', language="ru")
 def lalala(message):
 	user_text = message.text.lower()
 
-	log_text = message.chat.username + ' - ' + user_text
-	print(log_text)
+	print(message.chat.username, user_text)
 
 	observation = find_observation(user_text)
 
