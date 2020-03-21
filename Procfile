@@ -1,1 +1,1 @@
-worker: python bote.py
+web: python bote.py $PORT
