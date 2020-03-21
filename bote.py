@@ -6,9 +6,9 @@ from flask import Flask
 
 bot = telebot.TeleBot(config.TOKEN)
 owm = pyowm.OWM('9e74b4669f6a8cf98cab1138c031c5fb', language="ru")
-app = Flask(__name__)
+server = Flask(__name__)
 
-@app.route("/")
+@server.route("/")
 def hello():
     return "Здрастье я чебупеля бот"
 
@@ -50,7 +50,8 @@ def find_observation(place):
         return None
 
 # RUN
-if __name__ == "__main__":
-    bot.polling(none_stop=True)
-    port = int(os.environ.get("PORT", 5000))
-    app.run(host='0.0.0.0', port=port)
+bot.polling(none_stop=True)
+
+if __name__ == '__main__':
+    server.debug = True
+    server.run(host="0.0.0.0", port=int(os.environ.get('PORT', 5000)))
