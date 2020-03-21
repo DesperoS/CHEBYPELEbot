@@ -1,10 +1,16 @@
 import telebot
 import config
 import pyowm
+import os
+from flask import Flask
 
 bot = telebot.TeleBot(config.TOKEN)
 owm = pyowm.OWM('9e74b4669f6a8cf98cab1138c031c5fb', language="ru")
+app = Flask(__name__)
 
+@app.route("/")
+def hello():
+    return "Здрастье я чебупеля бот"
 
 @bot.message_handler(content_types=['text'])
 def lalala(message):
@@ -43,6 +49,7 @@ def find_observation(place):
     except:
         return None
 
-
 # RUN
 bot.polling(none_stop=True)
+port = int(os.environ.get("PORT", 5000))
+app.run(host='0.0.0.0', port=port)
