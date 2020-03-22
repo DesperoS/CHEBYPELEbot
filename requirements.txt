@@ -20,7 +20,6 @@ pyowm==2.10.0
 pyTelegramBotAPI==3.6.7
 requests==2.23.0
 six==1.14.0
-telebot==0.0.3
 tornado==6.0.4
 urllib3==1.25.8
 virtualenv==20.0.13

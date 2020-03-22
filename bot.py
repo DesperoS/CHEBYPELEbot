@@ -1,9 +1,32 @@
 import telebot
 import config
 import pyowm
+import os
+
+from flask import Flask, request
+
 
 bot = telebot.TeleBot(config.TOKEN)
 owm = pyowm.OWM('9e74b4669f6a8cf98cab1138c031c5fb', language="ru")
+server = Flask(__name__)
+
+
+if __name__ == '__main__':
+    server.run(host="0.0.0.0", port=int(os.environ.get('PORT', 5000)))
+
+
+@server.route("/bot", methods=['POST'])
+def getMessage():
+    response = request.stream.read().decode("utf-8")
+    bot.process_new_updates([telebot.types.Update.de_json(response)])
+    return "!", 200
+
+
+@server.route("/")
+def webhook():
+    bot.remove_webhook()
+    bot.set_webhook(url=config.HOST)
+    return "?", 200
 
 
 @bot.message_handler(content_types=['text'])
@@ -42,3 +65,4 @@ def find_observation(place):
         return owm.weather_at_place(place)
     except:
         return None
+
