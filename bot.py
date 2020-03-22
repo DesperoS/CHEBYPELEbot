@@ -52,7 +52,7 @@ def lalala(message):
     bot.send_message(message.chat.id, first_message)
     bot.send_message(message.chat.id, second_message)
 
-    sovet_message = "ни ебу"
+    sovet_message = "заебись погода харе дома сидеть далбоеб"
 
     if temp < 10:
         sovet_message = "ОДЕВАЙ ПОДШТАННИКИ, ДЕБИЛ. Тебе ещё детей ростить"
