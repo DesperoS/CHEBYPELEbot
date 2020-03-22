@@ -1,4 +1,5 @@
 #конфиг дя всего, в юбое время можно испрвить, начнём с создаиня эхо бота
+import os
 
-TOKEN = '1113267225:AAHRN2PN3OTwvM4zdRr488FjCsSGfDg9o0w'
+TOKEN = os.environ.get('BOT_TOKEN')
 HOST = 'https://chebupelbot.herokuapp.com/'
