@@ -1,1 +1,1 @@
-web: python bote.py
+web: python remote.py
