@@ -25,6 +25,12 @@ def updater():
     return "!", 200
 
 
+@bot.message_handler(commands=['start'])
+def start(message):
+    bot.reply_to(message, 'Здарова, я чебупеля бот, ебать тебя в рот')
+    bot.reply_to(message, 'Напиши мне названия города и я расскажу шо там с погодой')
+
+
 @bot.message_handler(content_types=['text'])
 def lalala(message):
     user_text = message.text.lower()
