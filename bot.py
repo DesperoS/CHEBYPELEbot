@@ -14,12 +14,12 @@ server = Flask(__name__)
 @server.route("/")
 def webhook():
     bot.remove_webhook()
-    bot.set_webhook(url=config.HOST)
-    return "ХАЙ Я ЧЕБУПЕЛЯ БОТ", 200
+    bot.set_webhook(url=config.HOST + config.TOKEN)
+    return "ХАЙ Я ЧЕБУПЕЛЯ БОТ ЕБАТЬ СУКА В РОТ", 200
 
 
-@server.route('/bot', methods=['POST'])
-def getMessage():
+@server.route('/' + config.TOKEN, methods=['POST'])
+def updater():
     response = request.stream.read().decode("utf-8")
     bot.process_new_updates([telebot.types.Update.de_json(response)])
     return "!", 200
