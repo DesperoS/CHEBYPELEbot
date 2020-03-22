@@ -3,7 +3,7 @@ import config
 import pyowm
 import os
 
-from flask import Flask, request
+from flask import Flask
 
 
 bot = telebot.TeleBot(config.TOKEN)
@@ -11,18 +11,11 @@ owm = pyowm.OWM('9e74b4669f6a8cf98cab1138c031c5fb', language="ru")
 server = Flask(__name__)
 
 
-@server.route('/' + config.TOKEN, methods=['POST'])
-def getMessage():
-    response = request.stream.read().decode("utf-8")
-    bot.process_new_updates([telebot.types.Update.de_json(response)])
-    return "!", 200
-
-
 @server.route("/")
 def webhook():
     bot.remove_webhook()
-    bot.set_webhook(url=config.HOST + config.TOKEN)
-    return "?", 200
+    bot.set_webhook(url=config.HOST)
+    return "ХАЙ Я ЧЕБУПЕЛЯ БОТ", 200
 
 
 @bot.message_handler(content_types=['text'])
