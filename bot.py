@@ -15,7 +15,7 @@ server = Flask(__name__)
 def webhook():
     bot.remove_webhook()
     bot.set_webhook(url=config.HOST + config.TOKEN)
-    return "ХАЙ Я ЧЕБУПЕЛЯ БОТ ЕБАТЬ СУКА В РОТ", 200
+    return "ХАЙ Я ЧЕБУПЕЛЯ БОТ", 200
 
 
 @server.route('/' + config.TOKEN, methods=['POST'])
@@ -27,7 +27,7 @@ def updater():
 
 @bot.message_handler(commands=['start'])
 def start(message):
-    bot.reply_to(message, 'Здарова, я чебупеля бот, ебать тебя в рот')
+    bot.reply_to(message, 'Здарова, я чебупеля бот')
     bot.reply_to(message, 'Напиши мне названия города и я расскажу шо там с погодой')
 
 
@@ -40,7 +40,7 @@ def lalala(message):
     observation = find_observation(user_text)
 
     if observation is None:
-        bot.send_message(message.chat.id, "Напиши нормальный город блять")
+        bot.send_message(message.chat.id, "Напиши нормальный город, буду признателен")
         return
 
     w = observation.get_weather()
@@ -52,12 +52,12 @@ def lalala(message):
     bot.send_message(message.chat.id, first_message)
     bot.send_message(message.chat.id, second_message)
 
-    sovet_message = "заебись погода харе дома сидеть далбоеб"
+    sovet_message = "погода - высший пилотаж, харе дома сидеть"
 
     if temp < 10:
-        sovet_message = "ОДЕВАЙ ПОДШТАННИКИ, ДЕБИЛ. Тебе ещё детей ростить"
+        sovet_message = "ОДЕВАЙ ПОДШТАННИКИ, ДУРАЧИШКА. Тебе ещё детей ростить"
     elif temp > 10:
-        sovet_message = "чо нарядился как капуста, пиздуй в шортанах девок клеить и пиццу жрать, дебил"
+        sovet_message = "чо нарядился как капуста, сегодня можно на легке, я разрешаю"
 
     bot.send_message(message.chat.id, sovet_message)
 
